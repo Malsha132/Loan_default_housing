@@ -48,12 +48,12 @@ st.write('This app predicts whether a loan is at risk of default based on custom
 # Input form for the user
 with st.form(key='loan_form'):
     qspurposedes = st.selectbox('Loan Purpose', ['CONSTRUCTION', 'EDUCATION', 'INVESTMENT', 'PERSONAL NEEDS', 'PURCHASE OF PROPERTY', 'PURCHASE OF VEHICLE', 'WORKING CAPITAL REQUIREMENT'])
-    qsector = st.selectbox('Sector', ['OTHER SERVICES', 'CONSTRUCTION & INFRASTRUCTURE', 'TRADERS', 'FINANCIAL',  'MANUFACTURING & LOGISTIC','CONSUMPTION','PROFESSIONAL, SCIENTIFIC & TECHNICAL ACTIV','AGRICULTURE & FISHING', 'TECHNOLOGY & INNOVATION','TOURISM'])
-    lnbase = st.selectbox('Base', ['FINANCIAL INSTITUTIONS', 'INDIVIDUALS', 'MICRO FINANCE', 'MIDDLE MARKET CORPORATES', 'SME', 'UNCLASSIFIED'])
+    qsector = st.selectbox('Industry Sector', ['OTHER SERVICES', 'CONSTRUCTION & INFRASTRUCTURE', 'TRADERS', 'FINANCIAL',  'MANUFACTURING & LOGISTIC','CONSUMPTION','PROFESSIONAL, SCIENTIFIC & TECHNICAL ACTIV','AGRICULTURE & FISHING', 'TECHNOLOGY & INNOVATION','TOURISM'])
+    lnbase = st.selectbox('Customer Group', ['FINANCIAL INSTITUTIONS', 'INDIVIDUALS', 'MICRO FINANCE', 'MIDDLE MARKET CORPORATES', 'SME', 'UNCLASSIFIED'])
     sex = st.selectbox('Gender', ['M', 'F'])
     lnpayfreq = st.selectbox('Payment Frequency', ['2', '5', '6','12'])
-    credit_card_used = st.selectbox('Used Credit Card', ['No','Yes'])
-    debit_card_used = st.selectbox('Used Debit Card', ['No','Yes'])
+    credit_card_used = st.selectbox('Credict Card Used', ['No','Yes'])
+    debit_card_used = st.selectbox('Debit Card Used', ['No','Yes'])
     lnperiod_category = st.selectbox('Loan Period Category', ['Short-term', 'Medium-term', 'Long-term'])
     lnamount = st.slider('Loan Amount', min_value=1000, max_value=1000000, step=1000)
     lninstamt = st.slider('Installment Amount', min_value=100, max_value=100000, step=100)
