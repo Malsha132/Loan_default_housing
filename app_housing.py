@@ -1,6 +1,10 @@
 import streamlit as st
 import joblib
 import pandas as pd
+from sklearn.metrics import classification_report
+from PIL import Image
+import base64
+from io import BytesIO
 
 # Load your pre-trained model and scaler
 model = joblib.load("classification_model_housing.pkl")
@@ -12,6 +16,33 @@ def predict_loan_default(input_data):
     input_data_scaled = scaler.transform(input_data)  # Scaling the input
     prediction = model.predict(input_data_scaled)  # Prediction
     return prediction[0]
+
+# Function to convert image to base64 string
+def image_to_base64(image):
+    buffered = BytesIO()
+    image.save(buffered, format="PNG")
+    return base64.b64encode(buffered.getvalue()).decode("utf-8")
+
+# Image upload for background
+uploaded_image = st.file_uploader("Upload Background Image", type=["jpg", "jpeg", "png"])
+
+# Apply image as background
+if uploaded_image is not None:
+    image = Image.open(uploaded_image)
+    image_base64 = image_to_base64(image)
+    st.markdown(
+        f"""
+        <style>
+        .main {{
+            background-image: url('data:image/png;base64,{image_base64}');
+            background-size: cover;
+            background-position: center center;
+            min-height: 100vh;
+            color: white;
+        }}
+        </style>
+        """, unsafe_allow_html=True
+    )
 
 # App header and description
 st.title('Loan Default Risk Prediction')
@@ -35,8 +66,23 @@ with st.form(key='loan_form'):
     
     submit_button = st.form_submit_button(label='Predict Default Risk')
 
-# Process and predict on user input
+# Show user input summary before prediction
 if submit_button:
+    st.write("### Your Input Summary:")
+    st.write(f"**Loan Purpose**: {qspurposedes}")
+    st.write(f"**Sector**: {qsector}")
+    st.write(f"**Base**: {lnbase}")
+    st.write(f"**Gender**: {sex}")
+    st.write(f"**Payment Frequency**: {lnpayfreq}")
+    st.write(f"**Used Credit Card**: {credit_card_used}")
+    st.write(f"**Used Debit Card**: {debit_card_used}")
+    st.write(f"**Loan Period Category**: {lnperiod_category}")
+    st.write(f"**Loan Amount**: {lnamount}")
+    st.write(f"**Installment Amount**: {lninstamt}")
+    st.write(f"**Average Savings Account Balance**: {average_sagbal}")
+    st.write(f"**Age**: {age}")
+    st.write(f"**Interest Rate**: {lnintrate}")
+
     # Create a DataFrame from user inputs
     user_input = pd.DataFrame({
         'LNAMOUNT': [lnamount],
