@@ -1,7 +1,6 @@
 import streamlit as st
 import joblib
 import pandas as pd
-#from sklearn.metrics import classification_report
 from PIL import Image
 import base64
 from io import BytesIO
@@ -52,15 +51,17 @@ with st.form(key='loan_form'):
     lnbase = st.selectbox('Customer Group', ['FINANCIAL INSTITUTIONS', 'INDIVIDUALS', 'MICRO FINANCE', 'MIDDLE MARKET CORPORATES', 'SME', 'UNCLASSIFIED'])
     sex = st.selectbox('Gender', ['M', 'F'])
     lnpayfreq = st.selectbox('Payment Frequency', ['2', '5', '6','12'])
-    credit_card_used = st.selectbox('Credict Card Used', ['No','Yes'])
-    debit_card_used = st.selectbox('Debit Card Used', ['No','Yes'])
+    credit_card_used = st.radio('Credit Card Used', ['No', 'Yes'])
+    debit_card_used = st.radio('Debit Card Used', ['No', 'Yes'])
     lnperiod_category = st.selectbox('Loan Period Category', ['Short-term', 'Medium-term', 'Long-term'])
-    lnamount = st.slider('Loan Amount', min_value=1000, max_value=1000000, step=1000)
-    lninstamt = st.slider('Installment Amount', min_value=100, max_value=100000, step=100)
-    average_sagbal = st.slider('Average Savings Account Balance', min_value=0, max_value=1000000, step=1000)
-    age = st.slider('Age', min_value=18, max_value=80)
-    lnintrate = st.slider('Interest Rate', min_value=0.1, max_value=20.0, step=0.1)
     
+    # Numerical inputs
+    lnamount = st.text_input('Loan Amount')
+    lninstamt = st.text_input('Installment Amount')
+    average_sagbal = st.text_input('Average Savings Account Balance')
+    age = st.text_input('Age')
+    lnintrate = st.text_input('Interest Rate')
+
     submit_button = st.form_submit_button(label='Predict Default Risk')
 
 # Show user input summary before prediction
@@ -82,11 +83,11 @@ if submit_button:
 
     # Create a DataFrame from user inputs
     user_input = pd.DataFrame({
-        'LNAMOUNT': [lnamount],
-        'LNINTRATE': [lnintrate],
-        'LNINSTAMT': [lninstamt],
-        'AGE': [age],
-        'AVERAGE_SAGBAL': [average_sagbal],
+        'LNAMOUNT': [float(lnamount)] if lnamount else [0],
+        'LNINTRATE': [float(lnintrate)] if lnintrate else [0],
+        'LNINSTAMT': [float(lninstamt)] if lninstamt else [0],
+        'AGE': [int(age)] if age else [0],
+        'AVERAGE_SAGBAL': [float(average_sagbal)] if average_sagbal else [0],
         'QSPURPOSEDES': [qspurposedes],
         'QS_SECTOR': [qsector],
         'LNBASELDESC': [lnbase],
