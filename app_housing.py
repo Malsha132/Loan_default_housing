@@ -3,9 +3,9 @@ import joblib
 import pandas as pd
 
 # Load your pre-trained model and scaler
-model = joblib.load("classification_model_personal.pkl")
-scaler = joblib.load("c_scaler.pkl")
-columns = joblib.load("c_X_train.pkl")
+model = joblib.load("classification_model_housing.pkl")
+scaler = joblib.load("h_scaler.pkl")
+columns = joblib.load("h_X_train.pkl")
 
 # Function for prediction
 def predict_loan_default(input_data):
