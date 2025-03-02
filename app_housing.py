@@ -46,14 +46,14 @@ st.write('This app predicts whether a loan is at risk of default based on custom
 
 # Input form for the user
 with st.form(key='loan_form'):
-    qspurposedes = st.selectbox('Loan Purpose', ['CONSTRUCTION', 'EDUCATION', 'INVESTMENT', 'PERSONAL NEEDS', 'PURCHASE OF PROPERTY', 'PURCHASE OF VEHICLE', 'WORKING CAPITAL REQUIREMENT'])
-    qsector = st.selectbox('Industry Sector', ['OTHER SERVICES', 'CONSTRUCTION & INFRASTRUCTURE', 'TRADERS', 'FINANCIAL',  'MANUFACTURING & LOGISTIC','CONSUMPTION','PROFESSIONAL, SCIENTIFIC & TECHNICAL ACTIV','AGRICULTURE & FISHING', 'TECHNOLOGY & INNOVATION','TOURISM'])
-    lnbase = st.selectbox('Customer Group', ['FINANCIAL INSTITUTIONS', 'INDIVIDUALS', 'MICRO FINANCE', 'MIDDLE MARKET CORPORATES', 'SME', 'UNCLASSIFIED'])
-    sex = st.selectbox('Gender', ['M', 'F'])
-    lnpayfreq = st.selectbox('Payment Frequency', ['2', '5', '6','12'])
-    credit_card_used = st.radio('Credit Card Used', ['No', 'Yes'])
-    debit_card_used = st.radio('Debit Card Used', ['No', 'Yes'])
-    lnperiod_category = st.selectbox('Loan Period Category', ['Short-term', 'Medium-term', 'Long-term'])
+    qspurposedes = st.selectbox('Loan Purpose', ['CONSTRUCTION', 'EDUCATION', 'INVESTMENT', 'PERSONAL NEEDS', 'PURCHASE OF PROPERTY', 'PURCHASE OF VEHICLE', 'WORKING CAPITAL REQUIREMENT'],index=None)
+    qsector = st.selectbox('Industry Sector', ['OTHER SERVICES', 'CONSTRUCTION & INFRASTRUCTURE', 'TRADERS', 'FINANCIAL',  'MANUFACTURING & LOGISTIC','CONSUMPTION','PROFESSIONAL, SCIENTIFIC & TECHNICAL ACTIV','AGRICULTURE & FISHING', 'TECHNOLOGY & INNOVATION','TOURISM'],index=None)
+    lnbase = st.selectbox('Customer Group', ['FINANCIAL INSTITUTIONS', 'INDIVIDUALS', 'MICRO FINANCE', 'MIDDLE MARKET CORPORATES', 'SME', 'UNCLASSIFIED'],index=None)
+    sex = st.selectbox('Gender', ['M', 'F'],index=None)
+    lnpayfreq = st.selectbox('Payment Frequency', ['2', '5', '6','12'],index=None)
+    credit_card_used = st.radio('Credit Card Used', ['No', 'Yes'],index=None)
+    debit_card_used = st.radio('Debit Card Used', ['No', 'Yes'],index=None)
+    lnperiod_category = st.selectbox('Loan Period Category', ['Short-term', 'Medium-term', 'Long-term'],index=None)
     
     # Numerical inputs
     lnamount = st.text_input('Loan Amount')
