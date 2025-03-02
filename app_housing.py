@@ -1,8 +1,8 @@
 import streamlit as st
 import joblib
 import pandas as pd
-from PIL import Image
 import base64
+from PIL import Image
 from io import BytesIO
 
 # Load your pre-trained model and scaler
@@ -44,23 +44,41 @@ set_background("background.jpg")
 st.title('Loan Default Risk Prediction')
 st.write('This app predicts whether a loan is at risk of default based on customer and loan details.')
 
-# Input form for the user
+# Organize inputs into sections for a better layout
 with st.form(key='loan_form'):
-    qspurposedes = st.selectbox('Loan Purpose', ['CONSTRUCTION', 'EDUCATION', 'INVESTMENT', 'PERSONAL NEEDS', 'PURCHASE OF PROPERTY', 'PURCHASE OF VEHICLE', 'WORKING CAPITAL REQUIREMENT'],index=None)
-    qsector = st.selectbox('Industry Sector', ['OTHER SERVICES', 'CONSTRUCTION & INFRASTRUCTURE', 'TRADERS', 'FINANCIAL',  'MANUFACTURING & LOGISTIC','CONSUMPTION','PROFESSIONAL, SCIENTIFIC & TECHNICAL ACTIV','AGRICULTURE & FISHING', 'TECHNOLOGY & INNOVATION','TOURISM'],index=None)
-    lnbase = st.selectbox('Customer Group', ['FINANCIAL INSTITUTIONS', 'INDIVIDUALS', 'MICRO FINANCE', 'MIDDLE MARKET CORPORATES', 'SME', 'UNCLASSIFIED'],index=None)
-    sex = st.selectbox('Gender', ['M', 'F'],index=None)
-    lnpayfreq = st.selectbox('Payment Frequency', ['2', '5', '6','12'],index=None)
-    credit_card_used = st.radio('Credit Card Used', ['No', 'Yes'],index=None)
-    debit_card_used = st.radio('Debit Card Used', ['No', 'Yes'],index=None)
-    lnperiod_category = st.selectbox('Loan Period Category', ['Short-term', 'Medium-term', 'Long-term'],index=None)
+    st.subheader('Loan Information')
+    col1, col2 = st.columns(2)
+
+    with col1:
+        lnamount = st.text_input('Loan Amount')
+        lninstamt = st.text_input('Installment Amount')
+        lnintrate = st.text_input('Interest Rate')
     
-    # Numerical inputs
-    lnamount = st.text_input('Loan Amount')
-    lninstamt = st.text_input('Installment Amount')
-    average_sagbal = st.text_input('Average Savings Account Balance')
-    age = st.text_input('Age')
-    lnintrate = st.text_input('Interest Rate')
+    with col2:
+        age = st.text_input('Age')
+        average_sagbal = st.text_input('Average Savings Account Balance')
+
+    st.subheader('Customer Information')
+    col3, col4 = st.columns(2)
+
+    with col3:
+        sex = st.selectbox('Gender', ['M', 'F'], index=None)
+        lnbase = st.selectbox('Customer Group', ['FINANCIAL INSTITUTIONS', 'INDIVIDUALS', 'MICRO FINANCE', 'MIDDLE MARKET CORPORATES', 'SME', 'UNCLASSIFIED'], index=None)
+    
+    with col4:
+        credit_card_used = st.radio('Credit Card Used', ['No', 'Yes'], index=None)
+        debit_card_used = st.radio('Debit Card Used', ['No', 'Yes'], index=None)
+
+    st.subheader('Loan & Payment Details')
+    col5, col6 = st.columns(2)
+
+    with col5:
+        qspurposedes = st.selectbox('Loan Purpose', ['CONSTRUCTION', 'EDUCATION', 'INVESTMENT', 'PERSONAL NEEDS', 'PURCHASE OF PROPERTY', 'PURCHASE OF VEHICLE', 'WORKING CAPITAL REQUIREMENT'], index=None)
+        qsector = st.selectbox('Industry Sector', ['OTHER SERVICES', 'CONSTRUCTION & INFRASTRUCTURE', 'TRADERS', 'FINANCIAL', 'MANUFACTURING & LOGISTIC', 'CONSUMPTION', 'PROFESSIONAL, SCIENTIFIC & TECHNICAL ACTIV', 'AGRICULTURE & FISHING', 'TECHNOLOGY & INNOVATION', 'TOURISM'], index=None)
+
+    with col6:
+        lnpayfreq = st.selectbox('Payment Frequency', ['2', '5', '6', '12'], index=None)
+        lnperiod_category = st.selectbox('Loan Period Category', ['Short-term', 'Medium-term', 'Long-term'], index=None)
 
     submit_button = st.form_submit_button(label='Predict Default Risk')
 
