@@ -1,7 +1,7 @@
 import streamlit as st
 import joblib
 import pandas as pd
-from sklearn.metrics import classification_report
+#from sklearn.metrics import classification_report
 from PIL import Image
 import base64
 from io import BytesIO
@@ -18,31 +18,28 @@ def predict_loan_default(input_data):
     return prediction[0]
 
 # Function to convert image to base64 string
-def image_to_base64(image):
-    buffered = BytesIO()
-    image.save(buffered, format="PNG")
-    return base64.b64encode(buffered.getvalue()).decode("utf-8")
+def get_base64_image(image_path):
+    with open(image_path, "rb") as image_file:
+        encoded = base64.b64encode(image_file.read()).decode()
+    return encoded
 
-# Image upload for background
-uploaded_image = st.file_uploader("Upload Background Image", type=["jpg", "jpeg", "png"])
+# Function to set background image
+def set_background(image_path):
+    base64_str = get_base64_image(image_path)
+    page_bg_img = f"""
+    <style>
+    .stApp {{
+        background-image: url("data:image/jpeg;base64,{base64_str}");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }}
+    </style>
+    """
+    st.markdown(page_bg_img, unsafe_allow_html=True)
 
-# Apply image as background
-if uploaded_image is not None:
-    image = Image.open(uploaded_image)
-    image_base64 = image_to_base64(image)
-    st.markdown(
-        f"""
-        <style>
-        .main {{
-            background-image: url('data:image/png;base64,{image_base64}');
-            background-size: cover;
-            background-position: center center;
-            min-height: 100vh;
-            color: white;
-        }}
-        </style>
-        """, unsafe_allow_html=True
-    )
+# Set the background image
+set_background("background.jpg")
 
 # App header and description
 st.title('Loan Default Risk Prediction')
