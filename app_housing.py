@@ -64,23 +64,8 @@ with st.form(key='loan_form'):
 
     submit_button = st.form_submit_button(label='Predict Default Risk')
 
-# Show user input summary before prediction
+# Make the prediction after form submission
 if submit_button:
-    st.write("### Your Input Summary:")
-    st.write(f"**Loan Purpose**: {qspurposedes}")
-    st.write(f"**Sector**: {qsector}")
-    st.write(f"**Base**: {lnbase}")
-    st.write(f"**Gender**: {sex}")
-    st.write(f"**Payment Frequency**: {lnpayfreq}")
-    st.write(f"**Used Credit Card**: {credit_card_used}")
-    st.write(f"**Used Debit Card**: {debit_card_used}")
-    st.write(f"**Loan Period Category**: {lnperiod_category}")
-    st.write(f"**Loan Amount**: {lnamount}")
-    st.write(f"**Installment Amount**: {lninstamt}")
-    st.write(f"**Average Savings Account Balance**: {average_sagbal}")
-    st.write(f"**Age**: {age}")
-    st.write(f"**Interest Rate**: {lnintrate}")
-
     # Create a DataFrame from user inputs
     user_input = pd.DataFrame({
         'LNAMOUNT': [float(lnamount)] if lnamount else [0],
